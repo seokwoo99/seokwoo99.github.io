@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중고책 희망가 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        form {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>중고책 희망가 계산기</h1>
+    <form id="priceCalculator">
+        <label for="newPrice">새 책의 정가 (원):</label>
+        <input type="number" id="newPrice" placeholder="예: 20000" required>
+
+        <label for="discountRate">원하시는 할인율 (%):</label>
+        <input type="number" id="discountRate" placeholder="예: 30" required>
+
+        <button type="button" onclick="calculatePrice()">계산하기</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculatePrice() {
+            // 입력값 가져오기
+            const newPrice = parseFloat(document.getElementById('newPrice').value);
+            const discountRate = parseFloat(document.getElementById('discountRate').value);
+
+            // 유효성 검사
+            if (isNaN(newPrice) || isNaN(discountRate) || newPrice <= 0 || discountRate < 0 || discountRate > 100) {
+                alert('올바른 값을 입력해주세요. (정가는 양수, 할인율은 0~100 사이)');
+                return;
+            }
+
+            // 중고책 가격 계산
+            const usedPrice = newPrice * (1 - discountRate / 100);
+
+            // 결과 표시
+            document.getElementById('result').innerText = `중고책 가격: ${usedPrice.toFixed(2)}원`;
+        }
+    </script>
+</body>
+</html>
